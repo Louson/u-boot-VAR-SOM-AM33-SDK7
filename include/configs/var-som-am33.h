@@ -256,6 +256,7 @@
  * add mass storage support and for gadget we add both RNDIS ethernet
  * and DFU.
  */
+#define CONFIG_USB_MAX_CONTROLLER_COUNT 2
 #define CONFIG_USB_MUSB_DSPS
 #define CONFIG_ARCH_MISC_INIT
 #define CONFIG_MUSB_GADGET

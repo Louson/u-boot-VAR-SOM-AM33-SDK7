@@ -118,6 +118,8 @@ int usb_lowlevel_init(int index, void **controller)
 	void *mbase;
 	int timeout = MUSB_HOST_TIMEOUT;
 
+	printf("-- Init\n", timeout);
+	
 	if (!host) {
 		printf("MUSB host is not registered\n");
 		return -ENODEV;
@@ -165,6 +167,8 @@ static struct musb *gadget;
 
 int usb_gadget_handle_interrupts(void)
 {
+	printf("usb_gadget_handle_interrupts IN\n");
+
 	WATCHDOG_RESET();
 	if (!gadget || !gadget->isr)
 		return -EINVAL;
@@ -213,6 +217,12 @@ int musb_register(struct musb_hdrc_platform_data *plat, void *bdata,
 			void *ctl_regs)
 {
 	struct musb **musbp;
+
+	printf("-- musb_register\n");
+	printf("       mode      = %d\n", (int)(char)plat->mode);
+	printf("       power     = %d\n", (int)(char)plat->power);
+	printf("       min_power = %d\n", (int)(char)plat->min_power);
+	printf("       potpgt     = %d\n", (int)(char)plat->potpgt);
 
 	switch (plat->mode) {
 #ifdef CONFIG_MUSB_HOST

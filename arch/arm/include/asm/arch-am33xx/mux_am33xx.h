@@ -176,7 +176,8 @@ struct pad_signals {
 	int usb1_dp;
 	int usb1_ce;
 	int usb1_id;
-	int usb1_vbus;
+	int usb1_vbus
+	;
 	int usb1_drvvbus;
 	int ddr_resetn;
 	int ddr_csn0;

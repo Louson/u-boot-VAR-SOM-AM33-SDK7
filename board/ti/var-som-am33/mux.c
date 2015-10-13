@@ -129,6 +129,13 @@ static struct module_pin_mux rgmii2_strapping_pin_mux[] = {
 	{-1},
 };
 
+static struct module_pin_mux louis_pin_mux[] = {
+	{OFFSET(gpmc_ad12), MODE(7) | PULLDOWN_EN},
+	{OFFSET(gpmc_ad14), MODE(7) | PULLDOWN_EN},
+	{-1},
+};
+
+
 static struct module_pin_mux mmc0_pin_mux[] = {
 	{OFFSET(mmc0_dat3), (MODE(0) | RXACTIVE | PULLUP_EN)},  /* MMC0_DAT3 */
 	{OFFSET(mmc0_dat2), (MODE(0) | RXACTIVE | PULLUP_EN)},  /* MMC0_DAT2 */
@@ -197,6 +204,7 @@ void enable_rgmii2_pin_mux(void)
 
 void enable_board_pin_mux(void)
 {
+	printf("enable_board_pin_mux\n");
 	configure_module_pin_mux(rev_pin_mux);
 	configure_module_pin_mux(mmc0_pin_mux);
 	configure_module_pin_mux(nand_pin_mux);
@@ -206,5 +214,6 @@ void enable_board_pin_mux(void)
 	configure_module_pin_mux(clkout_pin_mux);
 	configure_module_pin_mux(bt_uart_select_pin_mux);
 	configure_module_pin_mux(rgmii2_strapping_pin_mux);
+	configure_module_pin_mux(louis_pin_mux);
 }
 

@@ -143,6 +143,7 @@ void set_uart_mux_conf(void)
 
 void set_mux_conf_regs(void)
 {
+	AAAA
 	enable_board_pin_mux();
 
 	/* Reset the RMII ethernet chip.

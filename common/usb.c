@@ -71,6 +71,8 @@ int usb_init(void)
 		usb_dev[i].devnum = -1;
 	}
 
+	printf("-- CONFIG_USB_MAX_CONTROLLER_COUNT = %d\n", CONFIG_USB_MAX_CONTROLLER_COUNT);
+	
 	/* init low_level USB */
 	for (i = 0; i < CONFIG_USB_MAX_CONTROLLER_COUNT; i++) {
 		/* init low_level USB */
@@ -826,7 +828,7 @@ struct usb_device *usb_get_dev_index(int index)
 struct usb_device *usb_alloc_new_device(void *controller)
 {
 	int i;
-	debug("New Device %d\n", dev_index);
+	printf("_alloc_: New Device %d\n", dev_index);
 	if (dev_index == USB_MAX_DEVICE) {
 		printf("ERROR, too many USB Devices, max=%d\n", USB_MAX_DEVICE);
 		return NULL;
@@ -874,6 +876,8 @@ __weak int usb_alloc_device(struct usb_device *udev)
  */
 int usb_new_device(struct usb_device *dev)
 {
+	printf("-- New device !\n");
+	
 	int addr, err;
 	int tmp;
 	ALLOC_CACHE_ALIGN_BUFFER(unsigned char, tmpbuf, USB_BUFSIZ);

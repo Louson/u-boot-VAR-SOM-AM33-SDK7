@@ -188,6 +188,7 @@ static void watchdog_disable(void)
 		defined(CONFIG_QSPI_BOOT)
 void s_init(void)
 {
+	printf("s_init\n");
 	/*
 	 * The ROM will only have set up sufficient pinmux to allow for the
 	 * first 4KiB NOR to be read, we must finish doing what we know of
