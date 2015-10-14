@@ -417,6 +417,7 @@ static irqreturn_t dsps_interrupt(int irq, void *hci)
 
 static int dsps_musb_init(struct musb *musb)
 {
+	printf("... dsps_musb_init IN\n");
 #ifndef __UBOOT__
 	struct device *dev = musb->controller;
 	struct musb_hdrc_platform_data *plat = dev->platform_data;

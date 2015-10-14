@@ -601,6 +601,7 @@ static inline int musb_platform_get_vbus_status(struct musb *musb)
 
 static inline int musb_platform_init(struct musb *musb)
 {
+	printf(".. musb_platform_init IN\n");
 	if (!musb->ops->init)
 		return -EINVAL;
 

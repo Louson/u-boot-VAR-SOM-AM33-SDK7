@@ -1843,6 +1843,8 @@ allocate_instance(struct device *dev,
 	struct musb		*musb;
 	struct musb_hw_ep	*ep;
 	int			epnum;
+
+	printf("... allocate_instance IN\n");
 #ifndef __UBOOT__
 	struct usb_hcd	*hcd;
 
@@ -1937,6 +1939,9 @@ musb_init_controller(struct musb_hdrc_platform_data *plat, struct device *dev,
 	int nIrq = 0;
 #endif
 
+	printf(". musb_init_controller IN\n");
+
+	
 	/* The driver might handle more features than the board; OK.
 	 * Fail when the board needs a feature that's not enabled.
 	 */
@@ -1949,6 +1954,7 @@ musb_init_controller(struct musb_hdrc_platform_data *plat, struct device *dev,
 	/* allocate */
 	musb = allocate_instance(dev, plat->config, ctrl);
 	if (!musb) {
+		printf("no mem\n");
 		status = -ENOMEM;
 		goto fail0;
 	}
@@ -1979,7 +1985,10 @@ musb_init_controller(struct musb_hdrc_platform_data *plat, struct device *dev,
 	if (status < 0)
 		goto fail1;
 
+	printf("-- musb_platform_init ok\n");
+
 	if (!musb->isr) {
+		printf("no isr\n");
 		status = -ENODEV;
 		goto fail2;
 	}
@@ -2067,6 +2076,7 @@ musb_init_controller(struct musb_hdrc_platform_data *plat, struct device *dev,
 	 * Otherwise, wait till the gadget driver hooks up.
 	 */
 	if (!is_otg_enabled(musb) && is_host_enabled(musb)) {
+		printf("host only\n");
 		struct usb_hcd	*hcd = musb_to_hcd(musb);
 
 		MUSB_HST_MODE(musb);

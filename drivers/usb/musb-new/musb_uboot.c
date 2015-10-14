@@ -127,8 +127,15 @@ int usb_lowlevel_init(int index, void **controller)
 
 	musb_start(host);
 	mbase = host->mregs;
+	u8 devctl = 0, devctl_sav = 0;
 	do {
-		if (musb_readb(mbase, MUSB_DEVCTL) & MUSB_DEVCTL_HM)
+		devctl = musb_readb(mbase, MUSB_DEVCTL);
+		if (devctl != devctl_sav)
+		{
+			devctl_sav = devctl;
+			printf("      devctl = 0x%02x\n", (int)devctl);
+		}
+		if ( devctl & MUSB_DEVCTL_HM)
 			break;
 	} while (--timeout);
 	if (!timeout)
