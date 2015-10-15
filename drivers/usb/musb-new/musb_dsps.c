@@ -109,6 +109,8 @@ struct dsps_musb_wrapper {
 
 	/* bit positions for mode */
 	unsigned	iddig:5;
+	unsigned	iddig_mux:5;
+
 	/* miscellaneous stuff */
 	u32		musb_core_offset;
 	u8		poll_seconds;
@@ -130,6 +132,7 @@ static const struct dsps_musb_wrapper ti81xx_driver_data __devinitconst = {
 	.reset			= 0,
 	.otg_disable		= 21,
 	.iddig			= 8,
+	.iddig_mux		= 7,
 	.usb_shift		= 0,
 	.usb_mask		= 0x1ff,
 	.usb_bitmap		= (0x1ff << 0),
@@ -470,6 +473,9 @@ static int dsps_musb_init(struct musb *musb)
 	val = dsps_readl(reg_base, wrp->phy_utmi);
 	val &= ~(1 << wrp->otg_disable);
 	dsps_writel(musb->ctrl_base, wrp->phy_utmi, val);
+
+	/* force host mode (iddig_mux) */
+	dsps_writel(reg_base, wrp->mode, (1 << wrp->iddig_mux));
 
 	/* clear level interrupt */
 	dsps_writel(reg_base, wrp->eoi, 0);
