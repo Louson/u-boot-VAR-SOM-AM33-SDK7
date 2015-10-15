@@ -2076,7 +2076,7 @@ musb_init_controller(struct musb_hdrc_platform_data *plat, struct device *dev,
 	 * Otherwise, wait till the gadget driver hooks up.
 	 */
 	if (!is_otg_enabled(musb) && is_host_enabled(musb)) {
-		printf("host only\n");
+		printf("-- host only\n");
 		struct usb_hcd	*hcd = musb_to_hcd(musb);
 
 		MUSB_HST_MODE(musb);
@@ -2116,6 +2116,7 @@ musb_init_controller(struct musb_hdrc_platform_data *plat, struct device *dev,
 	if (status < 0)
 		goto fail3;
 
+	printf("-- musb_init_debugfs...\n");
 	status = musb_init_debugfs(musb);
 	if (status < 0)
 		goto fail4;
@@ -2128,7 +2129,7 @@ musb_init_controller(struct musb_hdrc_platform_data *plat, struct device *dev,
 
 	pm_runtime_put(musb->controller);
 
-	pr_debug("USB %s mode controller at %p using %s, IRQ %d\n",
+	printf("USB %s mode controller at %p using %s, IRQ %d\n",
 			({char *s;
 			 switch (musb->board_mode) {
 			 case MUSB_HOST:		s = "Host"; break;
@@ -2143,6 +2144,7 @@ musb_init_controller(struct musb_hdrc_platform_data *plat, struct device *dev,
 #ifndef __UBOOT__
 	return 0;
 #else
+	printf("-- return %s\n", status == 0 ? "musb" : "null");
 	return status == 0 ? musb : NULL;
 #endif
 
